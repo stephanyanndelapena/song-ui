@@ -23,7 +23,8 @@ export function HomePage() {
         const data = await fetchSongs();
         if (!cancelled) {
           setSongs(data);
-          setActiveSong((prev) => prev ?? data?.[0] ?? null); // pick first by default
+          // Landing page should be the grid, so do NOT auto-select a song here.
+          // setActiveSong(data?.[0] ?? null);
         }
       } catch (e) {
         if (!cancelled) setError(e?.message ?? "Failed to load songs");
@@ -54,7 +55,6 @@ export function HomePage() {
 
   return (
     <AppShell onSearch={setQuery}>
-      {/* When a song is selected -> show Watch page */}
       {activeSong ? (
         <WatchLayout
           song={activeSong}
